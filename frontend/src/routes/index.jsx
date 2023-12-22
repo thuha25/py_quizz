@@ -34,9 +34,9 @@ export default function Index() {
     <>
       <header className='flex justify-between items-center'>
         <div>
-          <h1 className='text-2xl font-bold'>Cuestionarios</h1>
+          <h1 className='text-2xl font-bold'>PyQuest</h1>
           <p className='text-muted-foreground'>
-            ¡Ve la lista de los cuestionarios creados!
+            The list of the tests you created
           </p>
         </div>
         <div>
@@ -49,9 +49,9 @@ export default function Index() {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Cuestionario</TableHead>
-                  <TableHead className='w-0'>Administrar</TableHead>
-                  <TableHead className='w-0'>Eliminar</TableHead>
+                  <TableHead>Tests</TableHead>
+                  <TableHead className='w-0'>Edit</TableHead>
+                  <TableHead className='w-0'>Delete</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>

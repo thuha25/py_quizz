@@ -99,7 +99,7 @@ export default function Quiz() {
       <div>
         <Link to='/' className={buttonVariants({ variant: 'outline' })}>
           <ChevronsLeft className='mr-2 h-5 w-5' />
-          Volver
+          Back
         </Link>
       </div>
       <section className='pt-8'>
@@ -116,7 +116,7 @@ export default function Quiz() {
               >
                 <div className='flex flex-col space-y-2'>
                   <Label className='text-base' htmlFor='questionTitle'>
-                    Pregunta
+                    Question
                   </Label>
                   <Input
                     type='text'
@@ -133,7 +133,7 @@ export default function Quiz() {
                     <div key={index} className='grid gap-y-4'>
                       <div className='flex flex-col space-y-2'>
                         <Label className='text-base' htmlFor='questionOption'>
-                          Opción {index + 1}
+                          Option {index + 1}
                         </Label>
                         <Textarea
                           rows='2'
@@ -154,7 +154,7 @@ export default function Quiz() {
                               handleIsCorrectChange(index, event)
                             }
                           />
-                          <Label>Respuesta Correcta</Label>
+                          <Label>Correct answer</Label>
                         </div>
                         <Button
                           disabled={
@@ -165,7 +165,7 @@ export default function Quiz() {
                           onClick={() => handleDeleteQuestionOptionField(index)}
                         >
                           <Trash className='mr-2 w-4 h-4' />
-                          Eliminar Opción
+                          Delete option
                         </Button>
                       </div>
                       <Separator className='mt-6' />
@@ -178,20 +178,20 @@ export default function Quiz() {
                   onClick={handleAddQuestionOptionField}
                 >
                   <PlusSquare className='mr-2 w-4 h-4' />
-                  Agregar Opción
+                  Add option
                 </Button>
-                <Button type='submit'>Confirmar</Button>
+                <Button type='submit'>Confirm</Button>
               </form>
             </div>
             <div className='pl-6'>
               {questions.length < 1 ? (
                 <h3 className='text-2xl font-semibold'>
-                  Cuestionario sin contenido para mostrar.
+                  There's nothing to show here
                 </h3>
               ) : (
                 <div>
                   <h3 className='text-2xl font-semibold mb-4'>
-                    Preguntas del Cuestionario
+                    Questions of the Test
                   </h3>
                   <div>
                     <Accordion type='multiple' className='w-full'>
@@ -211,7 +211,7 @@ export default function Quiz() {
                             >
                               <Button type='submit' variant='destructive'>
                                 <Trash className='mr-2 h-4 w-4' />
-                                Eliminar
+                                Delete
                               </Button>
                             </Form>
                           </div>
@@ -223,11 +223,11 @@ export default function Quiz() {
                                     {answer.text}
                                     {answer.is_correct ? (
                                       <span className='font-semibold text-emerald-600'>
-                                        Verdadero
+                                        Correct
                                       </span>
                                     ) : (
                                       <span className='font-semibold text-red-500'>
-                                        Falso
+                                        Incorrect
                                       </span>
                                     )}
                                   </div>

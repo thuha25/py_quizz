@@ -43,7 +43,7 @@ export function QuizDialog({ getQuizzes }) {
     setTitleInput('')
     setDescriptionInput('')
 
-    toast({ title: 'Exito!', description: 'Cuestionario creado exitosamente.' })
+    toast({ title: 'Exit!', description: 'Created test successfully!' })
 
     getQuizzes()
   }
@@ -53,21 +53,21 @@ export function QuizDialog({ getQuizzes }) {
       <DialogTrigger asChild>
         <Button>
           <PlusSquare className='mr-2 h-4 w-4' />
-          Agregar Cuestionario
+          Add test
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Agregar Cuestionario</DialogTitle>
+          <DialogTitle>Add test</DialogTitle>
           <DialogDescription>
-            Pon a prueba el conocimiento de tus usuarios.
+            Check your skill
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleCreateQuiz} className='grid gap-y-4'>
           <Input
             name='title'
             id='title'
-            placeholder='Titulo del Cuestionario'
+            placeholder='Title of the test'
             autoComplete='off'
             required
             value={titleInput}
@@ -78,12 +78,12 @@ export function QuizDialog({ getQuizzes }) {
             id='description'
             rows='6'
             className='resize-none'
-            placeholder='Descripcíon del Cuestionario'
+            placeholder='Description of the test'
             required
             value={descriptionInput}
             onChange={(event) => setDescriptionInput(event.target.value)}
           />
-          <Button type='submit'>Confirmar</Button>
+          <Button type='submit'>Confirm</Button>
         </form>
       </DialogContent>
     </Dialog>

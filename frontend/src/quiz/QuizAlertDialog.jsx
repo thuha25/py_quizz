@@ -24,8 +24,8 @@ export function QuizAlertDialog({ quizId, getQuizzes }) {
     })
 
     toast({
-      title: 'Exito!',
-      description: 'Cuestionario eliminado exitosamente.',
+      title: 'Exit!',
+      description: 'Deleted test successfully!',
     })
 
     getQuizzes()
@@ -40,18 +40,18 @@ export function QuizAlertDialog({ quizId, getQuizzes }) {
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>¿Eliminar Cuestionario?</AlertDialogTitle>
+          <AlertDialogTitle>Delete this test?</AlertDialogTitle>
           <AlertDialogDescription>
-            Esto eliminara de manera permanente el cuestionario.
+            After confirmation, the test will be deleted permanently
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancelar</AlertDialogCancel>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction
             className={buttonVariants({ variant: 'destructive' })}
             onClick={handleDeleteQuiz}
           >
-            Confirmar
+            Confirm
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
