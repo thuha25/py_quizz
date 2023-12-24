@@ -19,13 +19,12 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Separator } from '@/components/ui/separator'
 import { useState } from 'react'
+import { QuizService } from '../services/quiz_service'
 
-const QUIZAPP_API_URL = import.meta.env.VITE_QUIZAPP_API_URL
+const quizService = new QuizService()
 
 export async function loader({ params }) {
-  const res = await fetch(`${QUIZAPP_API_URL}/quizzes/${params.quizId}`)
-  const quiz = await res.json()
-
+  const quiz = await quizService.getQuizById(params.quizId)
   return { quiz }
 }
 
@@ -80,13 +79,7 @@ export default function Quiz() {
       quiz_id: quiz.id,
     }
 
-    await fetch(`${QUIZAPP_API_URL}/quizzes/${quiz.id}/questions`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(question),
-    })
+    await quizService.createQuestion(quiz.id, question);
 
     setQuestionTitle('')
     setQuestionOptionFields([{ text: '', is_correct: false }])

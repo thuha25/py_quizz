@@ -12,8 +12,8 @@ class QuizController:
     def get_quiz_by_id(self, quiz_id):
         return db.get_or_404(QuizModel, quiz_id)
 
-    def create_quiz(self, quiz_data):
-        quiz = QuizModel(**quiz_data)
+    def create_quiz(self, quiz_data, author):
+        quiz = QuizModel(**quiz_data, author_id = author.id)
 
         try:
             db.session.add(quiz)

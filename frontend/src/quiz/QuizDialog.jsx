@@ -12,6 +12,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import { useState } from 'react'
+import { QuizService } from '../services/quiz_service'
 
 const QUIZAPP_API_URL = import.meta.env.VITE_QUIZAPP_API_URL
 
@@ -29,23 +30,16 @@ export function QuizDialog({ getQuizzes }) {
 
     event.preventDefault()
 
-    await fetch(`${QUIZAPP_API_URL}/quizzes`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        title: titleInput,
-        description: descriptionInput,
-      }),
+
+    const quizService = new QuizService()
+    quizService.createQuiz(titleInput, descriptionInput).then(() => {
+      setTitleInput('')
+      setDescriptionInput('')
+
+      toast({ title: 'Exit!', description: 'Created test successfully!' })
+
+      getQuizzes()
     })
-
-    setTitleInput('')
-    setDescriptionInput('')
-
-    toast({ title: 'Exit!', description: 'Created test successfully!' })
-
-    getQuizzes()
   }
 
   return (

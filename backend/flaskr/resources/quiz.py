@@ -1,7 +1,9 @@
+from flask import request
 from flask_smorest import Blueprint
 from flask.views import MethodView
 from flaskr.controllers import QuizController
 from flaskr.schemas import QuizSchema
+from flaskr.util.security import token_required
 
 bp = Blueprint("quizzes", __name__, description="Operations on quizzes")
 
@@ -28,8 +30,9 @@ class Quizzes(MethodView):
         """Get a list of all quizzes"""
         return controller.get_quizzes()
 
+    @token_required
     @bp.arguments(QuizSchema)
     @bp.response(201, QuizSchema)
-    def post(self, quiz_data):
+    def post(self, quiz_data, **kwargs):
         """Create a new quiz"""
-        return controller.create_quiz(quiz_data)
+        return controller.create_quiz(quiz_data, kwargs.get("user"))

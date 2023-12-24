@@ -14,15 +14,16 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { useEffect, useState } from 'react'
+import { useUser } from '../context/user_context';
 
 const QUIZAPP_API_URL = import.meta.env.VITE_QUIZAPP_API_URL
-const quizService = new QuizService();
 
-export default function Index() {
-  const [quizzes, setQuizzes] = useState([])
+export default function Profile() {
+  const [quizzes, setQuizzes] = useState([]);
+  const [user, setUser] = useUser();
   useEffect(() => {
-    quizService.getQuizzes().then(quizzes => setQuizzes(quizzes))
-  }, [])
+    setQuizzes(user?.quizzes ?? [])
+  }, [user])
 
   return (
     <>
@@ -34,7 +35,7 @@ export default function Index() {
           </p>
         </div>
         <div>
-          <QuizDialog getQuizzes={quizService.getQuizzes} />
+          <QuizDialog getQuizzes={() => user.quizzes} />
         </div>
       </header>
       <section className='pt-8'>
@@ -66,7 +67,7 @@ export default function Index() {
                     <TableCell>
                       <QuizAlertDialog
                         quizId={quiz.id}
-                        getQuizzes={quizService.getQuizzes}
+                        getQuizzes={() => user.quizzes}
                       />
                     </TableCell>
                   </TableRow>

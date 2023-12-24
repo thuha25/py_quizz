@@ -1,10 +1,9 @@
 import { redirect } from 'react-router-dom'
+import { QuizService } from '../services/quiz_service'
 
-const QUIZAPP_API_URL = import.meta.env.VITE_QUIZAPP_API_URL
+const quizService = new QuizService()
 
 export async function action({ params }) {
-  await fetch(`${QUIZAPP_API_URL}/questions/${params.questionId}`, {
-    method: 'DELETE',
-  })
+  await quizService.deleteQuestion(params.questionId);
   return redirect(`/quizzes/${params.quizId}`)
 }
