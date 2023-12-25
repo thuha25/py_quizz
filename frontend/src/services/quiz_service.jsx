@@ -2,8 +2,10 @@ export class QuizService {
     host_url = import.meta.env.VITE_QUIZAPP_API_URL
     
     constructor() {}
-    async getQuizzes() {
-        return fetch(`${this.host_url}/quizzes`).then(res => res.json())
+    async getQuizzes(filter=null) {
+        if(filter == null)
+            return fetch(`${this.host_url}/quizzes`).then(res => res.json())
+        return fetch(`${this.host_url}/quizzes?filter=${filter}`).then(res => res.json())
     }
 
     async getQuizzesByUser(user) {

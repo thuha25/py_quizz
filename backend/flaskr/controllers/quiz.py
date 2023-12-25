@@ -6,10 +6,13 @@ from flaskr.models import QuizModel
 
 
 class QuizController:
-    def get_quizzes(self, author_id=None):
+    def get_quizzes(self, author_id=None, filter=None):
+        query = QuizModel.query
         if author_id != None:
-            return QuizModel.query.filter_by(author_id=author_id).all()
-        return db.session.execute(db.select(QuizModel)).scalars()
+            query = query.filter_by(author_id=author_id)
+        if filter != None:
+            query = query.filter(QuizModel.title.like("%" + filter + "%"))
+        return query.all()
 
     def get_quiz_by_id(self, quiz_id):
         return db.get_or_404(QuizModel, quiz_id)

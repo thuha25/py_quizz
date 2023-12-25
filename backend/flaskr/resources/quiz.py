@@ -28,10 +28,13 @@ class Quizzes(MethodView):
     @bp.response(200, QuizSchema(many=True))
     def get(self):
         """Get a list of all quizzes"""
+        filter = None
+        author_id = None
+        if 'filter' in request.args:
+            filter = request.args.get('filter')
         if 'author_id' in request.args:
             author_id = int(request.args.get('author_id'))
-            return controller.get_quizzes(author_id=author_id)
-        return controller.get_quizzes()
+        return controller.get_quizzes(author_id=author_id, filter=filter)
 
     @token_required
     @bp.arguments(QuizSchema)

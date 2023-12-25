@@ -57,9 +57,13 @@ function EnterDialog(params) {
 
 export default function Quiz() {
     const [quizzes, setQuizzes] = useState([])
+    const [filter, setFilter] = useState(null);
     useEffect(() => {
-        quiz_service.getQuizzes().then(quizzes => setQuizzes(quizzes))
-    }, [])
+        if(filter)
+            quiz_service.getQuizzes(filter).then(quizzes => setQuizzes(quizzes))
+        else
+            quiz_service.getQuizzes().then(quizzes => setQuizzes(quizzes))
+    }, [filter])
     return (
         <>
             <header className='flex justify-between items-center'>
@@ -71,6 +75,7 @@ export default function Quiz() {
                 </div>
             </header>
             <section className='pt-8'>
+            <input type="text" value={filter} onChange={(event) => setFilter(event.target.value)} />
             <Card>
                 <CardContent className='pt-6'>
                     <Table>
