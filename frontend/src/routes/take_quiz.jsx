@@ -111,10 +111,10 @@ export default function TakeQuiz() {
                 <div className="w-2/3 flex flex-col gap-5">
                     <p className="border-2 rounded-lg border-slate-300 h-1/3 text-lg font-semibold text-slate-800 p-5 overflow-y-auto">
                         <p className="font-bold text-slate-500">Question: </p>
-                        {question.title}
+                        {question?.title ?? ""}
                     </p>
                     <div className="border-2 rounded-lg border-slate-300 h-1/2 flex flex-col p-5 gap-5 overflow-y-auto">
-                        {question.answers.map(
+                        {question?.answers?.map(
                             (answer, id) => 
                             id == corrects[index].correct
                             ?
@@ -131,7 +131,7 @@ export default function TakeQuiz() {
                             <div className="w-full rounded p-2 border-2 border-gray-200 hover:border-gray-400 transition-all">
                                 {answer.text}
                             </div>
-                        )}
+                        ) ?? ""}
                     </div>
                     <div className="border-2 rounded-lg border-slate-300 h-1/6 flex flex-col p-5 gap-5 overflow-y-auto text-lg font-semibold">
                         You got {corrects.reduce((prev, correct) => prev + (correct.is_correct ? 1 : 0), 0)}/{corrects.length} corrected answers
@@ -165,10 +165,10 @@ export default function TakeQuiz() {
                 <div className="w-2/3 flex flex-col gap-5">
                     <p className="border-2 rounded-lg border-slate-300 h-1/3 text-lg font-semibold text-slate-800 p-5 overflow-y-auto">
                         <p className="font-bold text-slate-500">Question: </p>
-                        {question.title}
+                        {question?.title ?? ""}
                     </p>
                     <div className="border-2 rounded-lg border-slate-300 h-1/2 flex flex-col p-5 gap-5 overflow-y-auto">
-                        {question.answers.map(
+                        {question?.answers?.map(
                             (answer, id) => 
                             answers[index] != undefined && answers[index] == id ? 
                             <button className="w-full rounded p-2 border-2 border-blue-500 hover:border-blue-500-400 transition-all">
@@ -182,7 +182,7 @@ export default function TakeQuiz() {
                             }}>
                                 {answer.text}
                             </button>
-                        )}
+                        ) ?? ""}
                     </div>
                     <SubmitDialog onConfirm={() => setEnd(true)}/>
                 </div>
