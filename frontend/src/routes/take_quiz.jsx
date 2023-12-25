@@ -79,7 +79,7 @@ export default function TakeQuiz() {
             end && corrects != null
             ?
             <div className="w-full h-[calc(80vh)] rounded-xl border-2 border-slate-400 flex gap-5 p-5">
-                <div className="w-1/3 grid grid-cols-5 gap-5">
+                <div className="w-1/3 grid grid-cols-5 gap-5 overflow-y-auto">
                     {
                         quiz.questions.map((question, qIndex) => (
                             index == qIndex
@@ -141,7 +141,7 @@ export default function TakeQuiz() {
             :
             // Taking test
             <div className="w-full h-[calc(80vh)] rounded-xl border-2 border-slate-400 flex gap-5 p-5">
-                <div className="w-1/3 grid grid-cols-5 gap-5">
+                <div className="w-1/3 grid grid-cols-5 gap-5 overflow-y-auto">
                     {
                         quiz.questions.map((question, qIndex) => (
                             index == qIndex

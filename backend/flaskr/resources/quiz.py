@@ -16,6 +16,12 @@ class Quiz(MethodView):
     def get(self, quiz_id):
         """Get a quiz by ID"""
         return controller.get_quiz_by_id(quiz_id)
+    
+    @token_required
+    @bp.response(200, QuizSchema)
+    def put(self, quiz_id, **kwargs):
+        update_params = request.json
+        return controller.update(quiz_id, update_params)
 
     @bp.response(204)
     def delete(self, quiz_id):
@@ -42,3 +48,4 @@ class Quizzes(MethodView):
     def post(self, quiz_data, **kwargs):
         """Create a new quiz"""
         return controller.create_quiz(quiz_data, kwargs.get("user"))
+
