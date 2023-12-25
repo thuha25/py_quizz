@@ -14,16 +14,30 @@ function Navbar() {
         })
     }
     return <div className="h-20 shadow-lg bg-white flex justify-between items-center px-12">
-        <div className="text-slate-800 text-xl font-bold">
-            Insert your title here
+        <div className="flex gap-10 items-center">
+            <Link
+                to="/"
+                className="text-slate-800 text-2xl font-bold"
+            >
+                PyQuest
+            </Link>
+            <Link
+                to="/quizzes"
+                className="text-slate-600 text-xl font-semibold hover:text-blue-500 transition-all"
+            >
+                Quiz
+            </Link>
         </div>
             {user != null 
             ?
             (
                 <div className="flex gap-5 items-center">
-                    <div className="text-lg font-semibold">
+                    <Link 
+                        to="/profile"
+                        className="text-lg font-semibold"
+                    >
                         Hello, {user.username}
-                    </div>
+                    </Link>
                     <button className="bg-red-500 text-white border-2 border-red-500 p-2 rounded-lg font-semibold hover:bg-white hover:text-red-500 transition-all" onClick={handleLogout}>
                         Logout
                     </button>

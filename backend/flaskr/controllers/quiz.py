@@ -6,7 +6,9 @@ from flaskr.models import QuizModel
 
 
 class QuizController:
-    def get_quizzes(self):
+    def get_quizzes(self, author_id=None):
+        if author_id != None:
+            return QuizModel.query.filter_by(author_id=author_id).all()
         return db.session.execute(db.select(QuizModel)).scalars()
 
     def get_quiz_by_id(self, quiz_id):

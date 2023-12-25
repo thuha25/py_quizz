@@ -28,6 +28,9 @@ class Quizzes(MethodView):
     @bp.response(200, QuizSchema(many=True))
     def get(self):
         """Get a list of all quizzes"""
+        if 'author_id' in request.args:
+            author_id = int(request.args.get('author_id'))
+            return controller.get_quizzes(author_id=author_id)
         return controller.get_quizzes()
 
     @token_required

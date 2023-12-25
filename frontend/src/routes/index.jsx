@@ -1,81 +1,43 @@
-import { Card, CardContent } from '@/components/ui/card'
-import { buttonVariants } from '@/components/ui/button'
-import { Settings } from 'lucide-react'
-import { Link } from 'react-router-dom'
-import { QuizAlertDialog } from '../quiz/QuizAlertDialog'
-import { QuizDialog } from '../quiz/QuizDialog'
-import { QuizService } from '../services/quiz_service'
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table'
-import { useEffect, useState } from 'react'
-
-const QUIZAPP_API_URL = import.meta.env.VITE_QUIZAPP_API_URL
-const quizService = new QuizService();
+import { Link } from "react-router-dom";
 
 export default function Index() {
-  const [quizzes, setQuizzes] = useState([])
-  useEffect(() => {
-    quizService.getQuizzes().then(quizzes => setQuizzes(quizzes))
-  }, [])
-
   return (
     <>
-      <header className='flex justify-between items-center'>
-        <div>
-          <h1 className='text-2xl font-bold'>Your tests</h1>
-          <p className='text-muted-foreground'>
-            The list of the tests you created
-          </p>
+      <div className="w-full h-full flex flex-col gap-5">
+        <div className="h-[calc(20vh)] text-6xl font-bold text-slate-700 flex flex-col items-center justify-center gap-5">
+          Welcome to PyQuiz
+          <div className="font-semibold text-lg text-slate-500">
+            A place where you can test yourself
+          </div>
         </div>
-        <div>
-          <QuizDialog getQuizzes={quizService.getQuizzes} />
+        <hr />
+        <div className="flex gap-5 h-[calc(50vh)]">
+          <div className="w-1/2 h-full rounded-xl border-2 border-slate-400 flex flex-col gap-5 items-center p-5">
+            <img src="https://img.freepik.com/premium-vector/job-exam-test-vector-illustration_138676-243.jpg?w=996" alt="" className="h-1/2 w-auto aspect-auto object-contain" />
+            <p>
+              You believe in your skills? Try your luck now!
+            </p>
+            <Link
+              to="/quizzes"
+              className="bg-blue-500 text-white font-bold p-2 rounded-xl hover:bg-blue-400 transition-all"
+            >
+              Take some test
+            </Link>
+          </div>
+          <div className="w-1/2 h-full rounded-xl border-2 border-slate-400 flex flex-col gap-5 items-center p-5">
+            <img src="https://st2.depositphotos.com/2247023/8143/v/600/depositphotos_81432308-stock-illustration-employment-on-competitive-basis-filling.jpg" alt="" className="h-1/2 w-auto aspect-auto object-contain"/>
+            <p>
+              You want to challenge the others? Make yourself a creator now!
+            </p>
+            <Link
+              to="/register"
+              className="bg-red-500 text-white font-bold p-2 rounded-xl hover:bg-red-400 transition-all"
+            >
+              Get started
+            </Link>
+          </div>
         </div>
-      </header>
-      <section className='pt-8'>
-        <Card>
-          <CardContent className='pt-6'>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Tests</TableHead>
-                  <TableHead className='w-0'>Edit</TableHead>
-                  <TableHead className='w-0'>Delete</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {quizzes.map((quiz) => (
-                  <TableRow key={quiz.id}>
-                    <TableCell>{quiz.title}</TableCell>
-                    <TableCell>
-                      <Link
-                        to={`/quizzes/${quiz.id}`}
-                        className={buttonVariants({
-                          variant: 'default',
-                          size: 'icon',
-                        })}
-                      >
-                        <Settings className='h-4 w-4' />
-                      </Link>
-                    </TableCell>
-                    <TableCell>
-                      <QuizAlertDialog
-                        quizId={quiz.id}
-                        getQuizzes={quizService.getQuizzes}
-                      />
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
-      </section>
+      </div>
     </>
   )
 }

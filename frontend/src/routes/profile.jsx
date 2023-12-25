@@ -16,13 +16,24 @@ import {
 import { useEffect, useState } from 'react'
 import { useUser } from '../context/user_context';
 
+const quiz_service = new QuizService();
+
 const QUIZAPP_API_URL = import.meta.env.VITE_QUIZAPP_API_URL
 
 export default function Profile() {
   const [quizzes, setQuizzes] = useState([]);
   const [user, setUser] = useUser();
+  const getQuizzes = () => {
+    quiz_service.getQuizzesByUser(user).then(
+      quizzes => {
+        setQuizzes(quizzes)
+      }
+    )
+  }
   useEffect(() => {
-    setQuizzes(user?.quizzes ?? [])
+    if(!user)
+      setQuizzes([])
+    getQuizzes()
   }, [user])
 
   return (
@@ -35,7 +46,7 @@ export default function Profile() {
           </p>
         </div>
         <div>
-          <QuizDialog getQuizzes={() => user.quizzes} />
+          <QuizDialog getQuizzes={getQuizzes} />
         </div>
       </header>
       <section className='pt-8'>
@@ -67,7 +78,7 @@ export default function Profile() {
                     <TableCell>
                       <QuizAlertDialog
                         quizId={quiz.id}
-                        getQuizzes={() => user.quizzes}
+                        getQuizzes={getQuizzes}
                       />
                     </TableCell>
                   </TableRow>

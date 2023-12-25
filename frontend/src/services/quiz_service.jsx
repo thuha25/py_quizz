@@ -7,7 +7,7 @@ export class QuizService {
     }
 
     async getQuizzesByUser(user) {
-        
+        return fetch(`${this.host_url}/quizzes?author_id=${user.id}`).then(res => res.json())
     }
 
     async getQuizById(id) {

@@ -2,6 +2,10 @@ from marshmallow import Schema, fields
 
 # --- PLAIN SCHEMAS
 
+class PlainUserSchema(Schema):
+    id = fields.Int(dump_only=True)
+    username = fields.Str(required=True)
+    email = fields.Str(required=True)
 
 class PlainAnswerSchema(Schema):
     id = fields.Int(dump_only=True)
@@ -33,9 +37,9 @@ class AnswerSchema(PlainAnswerSchema):
     question_id = fields.Int(required=True, load_only=True)
     question = fields.Nested(PlainQuestionSchema(), dump_only=True)
 
-
 class QuizSchema(PlainQuizSchema):
     questions = fields.List(
         fields.Nested(PlainQuestionSchema()),
         dump_only=True,
     )
+    author = fields.Nested(PlainUserSchema(), dump_only=True)
