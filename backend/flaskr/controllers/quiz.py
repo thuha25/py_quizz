@@ -13,6 +13,12 @@ class QuizController:
         if filter != None:
             query = query.filter(QuizModel.title.like("%" + filter + "%"))
         return query.all()
+    
+    def update(self, id, update_param):
+        QuizModel.query.filter_by(id=id).update(update_param)
+        db.session.commit()
+        
+        return self.get_quiz_by_id(id)
 
     def get_quiz_by_id(self, quiz_id):
         return db.get_or_404(QuizModel, quiz_id)
