@@ -15,12 +15,14 @@ import {
 } from '@/components/ui/table'
 import { useEffect, useState } from 'react'
 import { useUser } from '../context/user_context';
+import { useNavigate } from 'react-router-dom'
 
 const quiz_service = new QuizService();
 
 const QUIZAPP_API_URL = import.meta.env.VITE_QUIZAPP_API_URL
 
 export default function Profile() {
+  const navigate = useNavigate();
   const [quizzes, setQuizzes] = useState([]);
   const [user, setUser] = useUser();
   const getQuizzes = () => {
@@ -31,6 +33,8 @@ export default function Profile() {
     )
   }
   useEffect(() => {
+    if(user == -1)
+      navigate("/login")
     if(!user)
       setQuizzes([])
     getQuizzes()

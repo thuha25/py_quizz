@@ -3,6 +3,7 @@ from flask_smorest import abort
 from sqlalchemy.exc import SQLAlchemyError
 
 from flaskr.models import QuizModel
+from flaskr.models.services.models import WrapResponseDto
 
 
 class QuizController:
@@ -34,8 +35,13 @@ class QuizController:
 
         return quiz
 
-    def delete_quiz_by_id(self, quiz_id):
+    def delete_quiz_by_id(self, quiz_id, author):
         quiz = db.get_or_404(QuizModel, quiz_id)
+        if author.id != quiz.author_id:
+            return WrapResponseDto.error(
+                    "Unauthorized",
+                    "You can't delete others' quiz"
+                ).to_json(), 401
 
         db.session.delete(quiz)
         db.session.commit()

@@ -20,6 +20,9 @@ import { Textarea } from '@/components/ui/textarea'
 import { Separator } from '@/components/ui/separator'
 import { useState } from 'react'
 import { QuizService } from '../services/quiz_service'
+import { useUser } from "../context/user_context";
+import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
 
 const quizService = new QuizService()
 
@@ -29,12 +32,21 @@ export async function loader({ params }) {
 }
 
 export default function EditQuiz() {
+  const navigate = useNavigate()
+  const [user, setUser] = useUser();
   const { quiz } = useLoaderData()
   const { questions } = quiz
   const [questionTitle, setQuestionTitle] = useState('')
   const [questionOptionFields, setQuestionOptionFields] = useState([
     { text: '', is_correct: false },
   ])
+
+  useEffect(() => {
+    if(user == -1 || user == null || user.id != quiz.author.id) {
+      navigate("/profile")
+    }
+    console.log(quiz)
+  }, [])
 
   const handleAddQuestionOptionField = () => {
     setQuestionOptionFields([

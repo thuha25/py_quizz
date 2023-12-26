@@ -102,7 +102,7 @@ export default function TakeQuiz() {
                                 </button>
                             )
                             :
-                            <button className="rounded border-2 border-gray-500 text-slate-800 bg-white aspect-square flex items-center justify-center text-lg font-bold hover:border-gray-800 transition-all" onClick={() => setIndex(qIndex)}>
+                            <button className="rounded border-2 border-gray-300 text-slate-800 bg-white aspect-square flex items-center justify-center text-lg font-bold hover:border-gray-500 transition-all" onClick={() => setIndex(qIndex)}>
                                 {qIndex + 1}
                             </button>
                         ))
@@ -156,7 +156,7 @@ export default function TakeQuiz() {
                                 {qIndex + 1}
                             </button>
                             :
-                            <button className="rounded border-2 border-gray-500 text-slate-800 bg-white aspect-square flex items-center justify-center text-lg font-bold hover:border-gray-800 transition-all" onClick={() => setIndex(qIndex)}>
+                            <button className="rounded border-2 border-gray-300 text-slate-800 bg-white aspect-square flex items-center justify-center text-lg font-bold hover:border-gray-500 transition-all" onClick={() => setIndex(qIndex)}>
                                 {qIndex + 1}
                             </button>
                         ))

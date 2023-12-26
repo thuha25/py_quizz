@@ -3,6 +3,7 @@ from flask_smorest import abort
 from flaskr.extensions import db
 
 from flaskr.models import QuestionModel, QuizModel, AnswerModel
+from flaskr.models.services.models import WrapResponseDto
 
 
 class QuestionController:
@@ -10,11 +11,16 @@ class QuestionController:
         quiz = db.get_or_404(QuizModel, quiz_id)
         return quiz.questions
 
-    def create_question_in_quiz(self, question_data, quiz_id):
+    def create_question_in_quiz(self, question_data, quiz_id, author):
         title = question_data["title"]
         answers = question_data["answers"]
 
         quiz = db.get_or_404(QuizModel, quiz_id)
+        if author.id != quiz.author_id:
+            return WrapResponseDto.error(
+                    "Unauthorized",
+                    "You can't edit others' question"
+                ).to_json(), 401
 
         question = QuestionModel(title=title, quiz_id=quiz_id)
 
@@ -33,8 +39,14 @@ class QuestionController:
 
         return question
 
-    def delete_question_by_id(self, question_id):
+    def delete_question_by_id(self, question_id, author):
         question = db.get_or_404(QuestionModel, question_id)
+        quiz = question.quiz
+        if author.id != quiz.author_id:
+            WrapResponseDto.error(
+                    "Unauthorized",
+                    "You can't delete others' question"
+                ).to_json(), 401
 
         db.session.delete(question)
         db.session.commit()

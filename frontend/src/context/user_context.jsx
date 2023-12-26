@@ -12,7 +12,7 @@ export function useUser() {
 }
 
 export function UserProvider(props) {
-    const [user, setUser] = useState(null)
+    const [user, setUser] = useState(-1)
     useEffect(() => {
         const authService = new AuthenticationService();
         authService.login().then(

@@ -23,10 +23,11 @@ class Quiz(MethodView):
         update_params = request.json
         return controller.update(quiz_id, update_params)
 
+    @token_required
     @bp.response(204)
-    def delete(self, quiz_id):
+    def delete(self, quiz_id, **kwargs):
         """Delete a quiz by ID"""
-        return controller.delete_quiz_by_id(quiz_id)
+        return controller.delete_quiz_by_id(quiz_id, kwargs.get("user"))
 
 
 @bp.route("/quizzes")

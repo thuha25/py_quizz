@@ -2,6 +2,7 @@ from flask_smorest import Blueprint
 from flask.views import MethodView
 from flaskr.schemas import QuestionSchema
 from flaskr.controllers import QuestionController
+from flaskr.util.security import token_required
 
 bp = Blueprint("questions", __name__, description="Operations on questions")
 
@@ -10,10 +11,11 @@ controller = QuestionController()
 
 @bp.route("/questions/<int:question_id>")
 class Question(MethodView):
+    @token_required
     @bp.response(204)
-    def delete(self, question_id):
+    def delete(self, question_id, **kwargs):
         """Delete a question by ID"""
-        return controller.delete_question_by_id(question_id)
+        return controller.delete_question_by_id(question_id, kwargs.get('user'))
 
 
 @bp.route("/quizzes/<int:quiz_id>/questions")
@@ -23,8 +25,9 @@ class QuestionsInQuiz(MethodView):
         """Get a list of all questions in a quiz"""
         return controller.get_questions_in_quiz(quiz_id)
 
+    @token_required
     @bp.arguments(QuestionSchema)
     @bp.response(201, QuestionSchema)
-    def post(self, question_data, quiz_id):
+    def post(self, question_data, quiz_id, **kwargs):
         """Create a question in a quiz"""
-        return controller.create_question_in_quiz(question_data, quiz_id)
+        return controller.create_question_in_quiz(question_data, quiz_id, kwargs.get('user'))
